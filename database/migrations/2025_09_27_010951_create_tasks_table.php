@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title');
-            $table->boolean('is_complete');
         });
     }
-
+//ignore this file
     /**
      * Reverse the migrations.
      */
