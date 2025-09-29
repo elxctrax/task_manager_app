@@ -41,6 +41,10 @@
                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                         </form>
                     </td>
+                <tr class="table-light">
+                    <td colspan="4" class="text-muted">Added on: {{ $task->created_at->format('F j, Y, g:i A') }}
+                    </td>
+                </tr>
             @endforeach
         </tbody>
     </table>
