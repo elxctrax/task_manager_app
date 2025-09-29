@@ -1,5 +1,5 @@
 <x-layout title="Welcome">
-
+    @vite('resources/css/app.css')
     @section('content')
     <div class="container">
         <h2>New Task</h2>
@@ -35,11 +35,18 @@
                     </td>
                     <td>
                         <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
                     </td>
-                </tr>
             @endforeach
         </tbody>
     </table>
+
+    <div class="mt-4">
+        {{ $tasks->links('pagination::bootstrap-4') }}
     </div>
 
 

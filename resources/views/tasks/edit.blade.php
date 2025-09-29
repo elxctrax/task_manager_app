@@ -1,4 +1,5 @@
 <x-layout title="Edit Task">
+    @vite('resources/css/app.css')
     <div class="container">
         <h2>Edit Task</h2>
 
