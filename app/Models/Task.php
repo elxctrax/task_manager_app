@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use phpDocumentor\Reflection\Types\Boolean;
 
-class tasks extends Model
+class Task extends Model
 {
     /** @use HasFactory<\Database\Factories\TasksFactory> */
-    protected $fillable = ['title', 'description', 'is_complete'];
-    protected $casts = ['is_complete' => 'boolean',];
+    protected $fillable = ['title', 'description', 'is_completed'];
+    protected $casts = ['is_completed' => 'boolean',];
+    protected $table = 'todos';
     use HasFactory;
 }

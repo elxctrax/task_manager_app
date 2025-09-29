@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tasks;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = tasks::orderBy('created_at','desc')->get();
+        $tasks = Task::orderBy('created_at','desc')->get();
         return view('welcome', compact('tasks'));
     }
 
@@ -23,47 +23,47 @@ class TaskController extends Controller
         $data = $request->validate([
             'title' => 'required|string',
             'description' => 'nullable|string',
-            'status' => 'required|in:Completed,Pending',
+            //'status' => 'required|boolean',
         ]);
 
-        tasks::create([
+        Task::create([
             'title' => $data['title'],
             'description' => $data['description'] ?? null,
-            'is_complete' => $data['status'] === 'Completed',
+            'is_completed' => false,
         ]);
 
         return redirect()->route('tasks.index')->with('success', 'Task created.');
     }
 
-    public function edit(tasks $task)
+    public function edit(Task $task)
     {
         return view('tasks.edit', compact('task'));
     }
 
-    public function update(Request $request, tasks $task)
+    public function update(Request $request, Task $task)
     {
         $data = $request->validate([
             'title' => 'required|string',
             'description' => 'nullable|string',
-            'status' => 'required|in:Completed,Pending',
+            'status' => 'required|boolean',
         ]);
 
         $task->update([
             'title' => $data['title'],
             'description' => $data['description'] ?? null,
-            'is_complete' => $data['status'] === 'Completed',
+            'is_completed' => (bool) $data['status'],
         ]);
 
         return redirect()->route('tasks.index')->with('success', 'Task updated.');
     }
 
-    public function destroy(tasks $task)
+    public function destroy(Task $task)
     {
         $task->delete();
         return redirect()->route('tasks.index')->with('success', 'Task deleted.');
     }
 
-    public function show(tasks $task)
+    public function show(Task $task)
     {
         return view('tasks.show', compact('task'));
     }
